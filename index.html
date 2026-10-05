@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ertuğrul Taşkıran · Bilgisayar Mühendisi</title>
+<meta name="description" content="Bilgisayar Mühendisi · AI & RAG Geliştirici · Gömülü Sistemler">
+<meta name="theme-color" content="#0d0f12">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230d0f12'/%3E%3Crect x='3' y='3' width='58' height='58' rx='12' fill='none' stroke='%237dd3fc' stroke-width='3'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' text-anchor='middle' fill='%237dd3fc'%3EET%3C/text%3E%3C/svg%3E">
+<link rel="canonical" href="https://ertugrultaskiran.github.io/">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="tr_TR">
+<meta property="og:title" content="Ertuğrul Taşkıran · Bilgisayar Mühendisi">
+<meta property="og:description" content="AI, NLP, RAG ve bilgisayarlı görü. Projeler, deneyim ve TEKNOFEST & TÜBİTAK çalışmaları.">
+<meta property="og:url" content="https://ertugrultaskiran.github.io/">
+<meta property="og:image" content="https://ertugrultaskiran.github.io/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Ertuğrul Taşkıran · Bilgisayar Mühendisi">
+<meta name="twitter:description" content="AI, NLP, RAG ve bilgisayarlı görü. Projeler, deneyim ve TEKNOFEST & TÜBİTAK çalışmaları.">
+<meta name="twitter:image" content="https://ertugrultaskiran.github.io/og.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = { theme: { extend: {
+  fontFamily: { sans: ['"Space Grotesk"', 'system-ui', 'sans-serif'] },
+  colors: { ink: '#0d0f12', panel: '#161a20', line: '#272d36', ice: '#7dd3fc', ice2: '#38bdf8' }
+}}}
+</script>
+<style>
+  html { scroll-padding-top: 90px; }
+  body { background: #0d0f12; color: #cbd5e1; }
+  .bg-aura {
+    background:
+      radial-gradient(60% 50% at 80% 0%, rgba(56,189,248,.14), transparent 70%),
+      radial-gradient(50% 40% at 0% 40%, rgba(125,211,252,.07), transparent 70%),
+      linear-gradient(180deg, #0d0f12, #12161c 60%, #0d0f12);
+  }
+  .grid-lines {
+    background-image: linear-gradient(rgba(125,211,252,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(125,211,252,.05) 1px, transparent 1px);
+    background-size: 48px 48px;
+    mask-image: radial-gradient(ellipse at 70% 30%, #000 20%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 70% 30%, #000 20%, transparent 70%);
+  }
+  .glass { background: rgba(22,26,32,.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(125,211,252,.14); }
+  .neon { box-shadow: 0 0 0 1px rgba(125,211,252,.35), 0 0 24px rgba(56,189,248,.25); }
+  .caret::after { content: ''; display: inline-block; width: 2px; height: 1em; background: #7dd3fc; margin-left: 4px; vertical-align: -0.12em; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+  .nav-link.active { color: #7dd3fc; }
+  .chip { border: 1px solid #272d36; background: #12161c; }
+  .filter-btn.active { background: #7dd3fc; color: #0d0f12; border-color: #7dd3fc; }
+  .card { background: #161a20; border: 1px solid #272d36; transition: border-color .2s, transform .2s; }
+  .card:hover { border-color: rgba(125,211,252,.5); }
+  .card.hide { display: none; }
+  .card.pop { animation: pop .35s ease; }
+  @keyframes pop { from { opacity: 0; transform: scale(.97); } to { opacity: 1; transform: none; } }
+  .toast { transform: translate(-50%, 20px); opacity: 0; pointer-events: none; transition: all .3s; }
+  .toast.show { transform: translate(-50%, 0); opacity: 1; }
+  :focus-visible { outline: 2px solid #7dd3fc; outline-offset: 3px; border-radius: 6px; }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } html { scroll-behavior: auto; } }
+</style>
+</head>
+<body class="font-sans antialiased bg-aura">
+
+<!-- NAV -->
+<header class="fixed top-3 inset-x-0 z-50 px-3">
+  <nav class="glass mx-auto max-w-5xl rounded-2xl px-4 py-2.5 flex items-center justify-between" aria-label="Ana menü">
+    <a href="#home" class="font-semibold text-white tracking-tight">ertugrul<span class="text-ice">.taskiran</span></a>
+    <ul id="navlinks" class="hidden md:flex items-center gap-1 text-sm">
+      <li><a class="nav-link px-3 py-1.5 rounded-lg hover:text-white" href="#about">Hakkımda</a></li>
+      <li><a class="nav-link px-3 py-1.5 rounded-lg hover:text-white" href="#experience">Deneyim</a></li>
+      <li><a class="nav-link px-3 py-1.5 rounded-lg hover:text-white" href="#projects">Projeler</a></li>
+      <li><a class="nav-link px-3 py-1.5 rounded-lg hover:text-white" href="#achievements">Başarılar</a></li>
+      <li><a class="nav-link px-3 py-1.5 rounded-lg hover:text-white" href="#erasmus">Erasmus</a></li>
+      <li><a class="nav-link px-3 py-1.5 rounded-lg hover:text-white" href="#skills">Yetenekler</a></li>
+      <li><a class="nav-link px-3 py-1.5 rounded-lg hover:text-white" href="#contact">İletişim</a></li>
+    </ul>
+    <button id="menuBtn" class="md:hidden p-2 rounded-lg hover:bg-white/5" aria-label="Menüyü aç" aria-expanded="false">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </nav>
+  <div id="mobileMenu" class="glass hidden md:hidden mx-auto max-w-5xl mt-2 rounded-2xl p-2 text-sm">
+    <a class="block px-3 py-2.5 rounded-lg hover:bg-white/5" href="#about">Hakkımda</a>
+    <a class="block px-3 py-2.5 rounded-lg hover:bg-white/5" href="#experience">Deneyim</a>
+    <a class="block px-3 py-2.5 rounded-lg hover:bg-white/5" href="#projects">Projeler</a>
+    <a class="block px-3 py-2.5 rounded-lg hover:bg-white/5" href="#achievements">Başarılar</a>
+    <a class="block px-3 py-2.5 rounded-lg hover:bg-white/5" href="#erasmus">Erasmus</a>
+    <a class="block px-3 py-2.5 rounded-lg hover:bg-white/5" href="#skills">Yetenekler</a>
+    <a class="block px-3 py-2.5 rounded-lg hover:bg-white/5" href="#contact">İletişim</a>
+  </div>
+</header>
+
+<main>
+<!-- HERO -->
+<section id="home" class="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16">
+  <div class="grid-lines absolute inset-0" aria-hidden="true"></div>
+  <div class="relative mx-auto max-w-5xl px-5 w-full">
+    <p class="text-ice2 text-sm mb-5">Merhaba, ben</p>
+    <h1 class="text-5xl sm:text-7xl font-bold text-white tracking-tight leading-[1.02]">Ertuğrul Taşkıran</h1>
+    <p class="mt-5 text-2xl sm:text-4xl font-medium text-slate-300 h-12">
+      <span id="typed" class="caret text-ice"></span>
+    </p>
+    <p class="mt-6 max-w-xl text-lg text-slate-400 leading-relaxed">
+      Yapay zekâ, bilgi erişimi ve gömülü sistemleri birleştiren uçtan uca çözümler geliştiriyorum. Roketten RAG hatlarına kadar fikri çalışan bir sisteme dönüştürüyorum.
+    </p>
+    <div class="mt-9 flex flex-wrap gap-3">
+      <a href="#projects" class="neon bg-ice text-ink font-semibold px-6 py-3 rounded-xl hover:bg-white transition">Projeleri gör</a>
+      <a href="Ertugrul_Taskiran_CV.pdf" download="Ertugrul_Taskiran_CV.pdf" class="glass px-6 py-3 rounded-xl text-white hover:border-ice/60 transition inline-flex items-center gap-2">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>
+        CV'mi indir</a>
+      <a href="https://github.com/ertugrultaskiran" target="_blank" rel="noopener noreferrer" class="glass px-6 py-3 rounded-xl text-white hover:border-ice/60 transition">GitHub'a git</a>
+      <a href="#contact" class="px-6 py-3 rounded-xl text-slate-300 hover:text-white transition">İletişime geç</a>
+    </div>
+  </div>
+</section>
+
+<!-- QUICK STATS -->
+<section class="mx-auto max-w-5xl px-5 -mt-6 relative">
+  <div class="glass rounded-2xl grid grid-cols-2 md:grid-cols-4 divide-line md:divide-x">
+    <div class="p-5"><p class="text-3xl font-bold text-white">3</p><p class="text-sm text-slate-400 mt-1">Yapay zekâ odaklı staj ve eğitim</p></div>
+    <div class="p-5"><p class="text-3xl font-bold text-white">2018</p><p class="text-sm text-slate-400 mt-1">TEKNOFEST roket finalisti</p></div>
+    <div class="p-5"><p class="text-3xl font-bold text-white">1</p><p class="text-sm text-slate-400 mt-1">Erasmus+ projesi koordinatörlüğü</p></div>
+    <div class="p-5"><p class="text-3xl font-bold text-white">BOSCH</p><p class="text-sm text-slate-400 mt-1">TÜBİTAK 2209-B iş birliği</p></div>
+  </div>
+</section>
+
+<!-- ABOUT & NOW -->
+<section id="about" class="mx-auto max-w-5xl px-5 py-24">
+  <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Hakkımda</h2>
+  <div class="mt-8 grid md:grid-cols-5 gap-6">
+    <div class="md:col-span-3 space-y-4 text-slate-400 leading-relaxed">
+      <p>Manisa Celal Bayar Üniversitesi Bilgisayar Mühendisliği'nden 2026'da mezun oldum. Lisede TEKNOFEST roket finaline kadar giden takımın kurucu üyelerindendim; bugün yapay zekâ, doğal dil işleme ve bilgisayarlı görü üzerine çalışıyorum.</p>
+      <p>Staj, yarışma ve araştırma projeleriyle teoriyi çalışan sistemlere dönüştürmeye odaklanıyorum: sensör verisinden RAG hatlarına, hedef takibinden sınıflandırma modellerine. Oyun geliştirme topluluğunda yardımcı liderlik yaptım ve bir Erasmus+ projesini koordine ettim.</p>
+      <p>İlgi alanlarım: yapay zekâ, oyun tasarımı, basketbol, tarih, sinema, masa tenisi, tenis ve yüzme (6 yıllık deneyim).</p>
+    </div>
+    <aside class="md:col-span-2 glass rounded-2xl p-6">
+      <h3 class="text-white font-semibold flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-ice animate-pulse"></span>Şu an</h3>
+      <ul class="mt-4 space-y-3 text-sm">
+        <li class="flex justify-between gap-3"><span class="text-slate-400">Mezuniyet</span><span class="text-white text-right">MCBÜ Bilgisayar Müh., 2026</span></li>
+        <li class="flex justify-between gap-3"><span class="text-slate-400">Odak</span><span class="text-white text-right">AI · NLP · Bilgisayarlı görü</span></li>
+        <li class="flex justify-between gap-3"><span class="text-slate-400">Diller</span><span class="text-white text-right">İngilizce (akıcı), Türkçe</span></li>
+        <li class="flex justify-between gap-3"><span class="text-slate-400">Durum</span><span class="text-ice text-right">Yeni fırsatlara açık</span></li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="mx-auto max-w-5xl px-5 pb-24">
+  <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Deneyim</h2>
+  <div class="mt-8 space-y-5">
+    <div class="glass rounded-2xl px-6 py-3"><h3 class="text-white font-semibold pt-3">Staj ve eğitim</h3><div class="grid md:grid-cols-[11rem_1fr] gap-1 md:gap-6 py-5 border-t border-line first:border-t-0"><p class="text-sm text-ice2">Mar 2025 – Eyl 2026</p><div><h4 class="text-white font-medium">Derin Teknoloji <span class="text-slate-400 font-normal">· Gönüllü, ardından zorunlu stajyer</span></h4><p class="text-sm text-slate-400 mt-1">Yaklaşık 1,5 yıl boyunca önce gönüllü, sonra zorunlu stajyer olarak backend tarafında çalıştım. Doğal dil işleme ve RAG mimarisi üzerine odaklandım; bu mimariye yönelik sistemler geliştirdim.</p></div></div><div class="grid md:grid-cols-[11rem_1fr] gap-1 md:gap-6 py-5 border-t border-line first:border-t-0"><p class="text-sm text-ice2">Haz 2024 – Ağu 2024</p><div><h4 class="text-white font-medium">Mesnet Bilişim <span class="text-slate-400 font-normal">· Stajyer</span></h4><p class="text-sm text-slate-400 mt-1">Model eğitimi, veri ön işleme ve algoritma seçimi odaklı makine öğrenmesi çalıştım; denetimli ve denetimsiz öğrenme tekniklerini uyguladım. Oyun geliştiren bir girişimin kuruluş ve yönetim sürecini yakından gördüm.</p></div></div><div class="grid md:grid-cols-[11rem_1fr] gap-1 md:gap-6 py-5 border-t border-line first:border-t-0"><p class="text-sm text-ice2">Oca 2024 – Tem 2024</p><div><h4 class="text-white font-medium">Yapay Zeka ve Teknoloji Akademisi <span class="text-slate-400 font-normal">· Eğitim programı</span></h4><p class="text-sm text-slate-400 mt-1">Sinir ağları ve derin öğrenme üzerine uzmanlaştım; doğal dil işleme ve bilgisayarlı görü uygulamaları dahil yapay zekâ modelleri geliştirdim.</p></div></div></div>
+    <div class="glass rounded-2xl px-6 py-3"><h3 class="text-white font-semibold pt-3">Topluluk ve liderlik</h3><div class="grid md:grid-cols-[11rem_1fr] gap-1 md:gap-6 py-5 border-t border-line first:border-t-0"><p class="text-sm text-ice2">2024 – 2026</p><div><h4 class="text-white font-medium">Oyun Tasarımı ve Geliştiricileri Topluluğu <span class="text-slate-400 font-normal">· Yardımcı lider</span></h4></div></div><div class="grid md:grid-cols-[11rem_1fr] gap-1 md:gap-6 py-5 border-t border-line first:border-t-0"><p class="text-sm text-ice2">Kas 2023 – Eyl 2024</p><div><h4 class="text-white font-medium">Dijital Oyun Geliştirme Ekibi (CBÜ) <span class="text-slate-400 font-normal">· Takım üyesi</span></h4><p class="text-sm text-slate-400 mt-1">Oyun geliştirme etkinlikleri düzenleyen toplulukta takım üyesi olarak yer aldım.</p></div></div><div class="grid md:grid-cols-[11rem_1fr] gap-1 md:gap-6 py-5 border-t border-line first:border-t-0"><p class="text-sm text-ice2">Ağu 2023 – Eyl 2024</p><div><h4 class="text-white font-medium">Game Factory <span class="text-slate-400 font-normal">· Takım üyesi</span></h4><p class="text-sm text-slate-400 mt-1">Game Factory şirketini temsil eden üniversite topluluğunda takım üyesi olarak ekip arkadaşlarımla etkinlikler düzenledim.</p></div></div></div>
+    <div class="glass rounded-2xl px-6 py-3"><h3 class="text-white font-semibold pt-3">Eğitim</h3><div class="grid md:grid-cols-[11rem_1fr] gap-1 md:gap-6 py-5 border-t border-line first:border-t-0"><p class="text-sm text-ice2">Eyl 2021 – 2026</p><div><h4 class="text-white font-medium">Manisa Celal Bayar Üniversitesi <span class="text-slate-400 font-normal">· Bilgisayar Mühendisliği (lisans, mezun)</span></h4></div></div><div class="grid md:grid-cols-[11rem_1fr] gap-1 md:gap-6 py-5 border-t border-line first:border-t-0"><p class="text-sm text-ice2">Mezuniyet: Haz 2020</p><div><h4 class="text-white font-medium">Ulubatlı Hasan Anadolu Lisesi</h4><p class="text-sm text-slate-400 mt-1">UHAL Roket Takımı kurucu üyesi (TEKNOFEST finalisti); bilim ve teknoloji kulüplerinde mühendislik uygulamaları.</p></div></div></div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="mx-auto max-w-5xl px-5 pb-24">
+  <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Projeler</h2>
+  <div id="filters" class="mt-6 flex flex-wrap gap-2" role="group" aria-label="Proje filtresi">
+    <button class="filter-btn active chip rounded-full px-4 py-1.5 text-sm transition" data-filter="all">Tümü</button>
+    <button class="filter-btn chip rounded-full px-4 py-1.5 text-sm transition" data-filter="ai">Yapay Zekâ</button>
+    <button class="filter-btn chip rounded-full px-4 py-1.5 text-sm transition" data-filter="embedded">Gömülü Sistemler</button>
+    <button class="filter-btn chip rounded-full px-4 py-1.5 text-sm transition" data-filter="web">Web & Mobil</button>
+    <button class="filter-btn chip rounded-full px-4 py-1.5 text-sm transition" data-filter="game">Oyun</button>
+  </div>
+
+  <div id="grid" class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <article class="card rounded-2xl p-6 flex flex-col" data-cat="ai">
+      <h3 class="text-white font-semibold text-lg">Document Assistant</h3>
+      <p class="mt-2 text-sm text-slate-400 flex-1">PDF, DOCX ve TXT belgelerine Türkçe soru sorulabilen RAG uygulaması. Bulut (Gemini + TF-IDF) ve tamamen lokal (Ollama + vektör embedding) iki pipeline aynı soruyu yan yana yanıtlar; benchmark sayfası cevap kalitesini ve gecikmeyi karşılaştırır.</p>
+      <ul class="mt-4 flex flex-wrap gap-1.5 text-xs"><li class="chip rounded-md px-2 py-1">PHP</li><li class="chip rounded-md px-2 py-1">CodeIgniter 4</li><li class="chip rounded-md px-2 py-1">MySQL</li><li class="chip rounded-md px-2 py-1">Gemini API</li><li class="chip rounded-md px-2 py-1">Ollama</li></ul>
+      <a href="https://github.com/ertugrultaskiran/document-assistant" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-sm text-ice hover:text-white">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.100.8 2.200v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg>
+        Kodu GitHub'da aç</a>
+    </article>
+
+    <article class="card rounded-2xl p-6 flex flex-col" data-cat="ai">
+      <h3 class="text-white font-semibold text-lg">IT Destek Talebi Sınıflandırma</h3>
+      <p class="mt-2 text-sm text-slate-400 flex-1">Bitirme projesi: 47.837 gerçek destek talebini 8 kategoriye ayıran uçtan uca NLP hattı. TF-IDF baseline (%86,04) ile BERT fine-tuning (%88,82) dahil dört yaklaşımı karşılaştırır; ablation study, REST API ve web demosu içerir.</p>
+      <ul class="mt-4 flex flex-wrap gap-1.5 text-xs"><li class="chip rounded-md px-2 py-1">Python</li><li class="chip rounded-md px-2 py-1">TensorFlow</li><li class="chip rounded-md px-2 py-1">PyTorch</li><li class="chip rounded-md px-2 py-1">BERT</li><li class="chip rounded-md px-2 py-1">scikit-learn</li><li class="chip rounded-md px-2 py-1">Flask</li></ul>
+      <a href="https://github.com/ertugrultaskiran/project" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-sm text-ice hover:text-white">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg>
+        Kodu GitHub'da aç</a>
+    </article>
+
+    <article class="card rounded-2xl p-6 flex flex-col" data-cat="web">
+      <h3 class="text-white font-semibold text-lg">Sporistasyon · Mobil ve Web</h3>
+      <p class="mt-2 text-sm text-slate-400 flex-1">Bursa Özlüce Tenis Kortları için geliştirdiğim mobil uygulama ve web sitesi. Kullanıcılar kort rezervasyonu yapar, kort kiralar ve turnuva oluşturur.</p>
+      <ul class="mt-4 flex flex-wrap gap-1.5 text-xs"><li class="chip rounded-md px-2 py-1">Mobil uygulama</li><li class="chip rounded-md px-2 py-1">Web sitesi</li><li class="chip rounded-md px-2 py-1">Tamamlandı</li></ul>
+      <p class="mt-5 text-sm text-slate-500">Özel proje · kod herkese açık değil</p>
+    </article>
+
+    <article class="card rounded-2xl p-6 flex flex-col" data-cat="web">
+      <h3 class="text-white font-semibold text-lg">Digital Library · Endemik Bitkiler</h3>
+      <p class="mt-2 text-sm text-slate-400 flex-1">Erasmus+ gençlik projesi için geliştirdiğim, mobil uyumlu web uygulaması. 5 Akdeniz ülkesinin endemik bitkileri listelenir; katılımcılar fotoğraflı yeni tür ekleyebilir. Ngrok ve QR kodlu erişim sayfasıyla katılımcılar kendi telefonlarından bağlanabilir.</p>
+      <ul class="mt-4 flex flex-wrap gap-1.5 text-xs"><li class="chip rounded-md px-2 py-1">PHP</li><li class="chip rounded-md px-2 py-1">MySQL</li><li class="chip rounded-md px-2 py-1">JavaScript</li><li class="chip rounded-md px-2 py-1">Responsive CSS</li><li class="chip rounded-md px-2 py-1">Ngrok</li></ul>
+      <a href="https://github.com/ertugrultaskiran/digital-library" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-sm text-ice hover:text-white">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg>
+        Kodu GitHub'da aç</a>
+    </article>
+
+    <article class="card rounded-2xl p-6 flex flex-col" data-cat="ai embedded">
+      <h3 class="text-white font-semibold text-lg">Giyilebilir Yapay Zekâ İş Güvenliği Yeleği</h3>
+      <p class="mt-2 text-sm text-slate-400 flex-1">BOSCH iş birliğiyle yürütülen TÜBİTAK 2209-B projesi. EKG, EMG ve GSR sensörlü yelek biyometrik veriyi gerçek zamanlı toplar; model "çalışmaya uygun", "mola vermeli" veya "çalışamaz" geri bildirimi verir. Sensör entegrasyonu, backend ve model optimizasyonu bende.</p>
+      <ul class="mt-4 flex flex-wrap gap-1.5 text-xs"><li class="chip rounded-md px-2 py-1">EKG · EMG · GSR</li><li class="chip rounded-md px-2 py-1">Backend</li><li class="chip rounded-md px-2 py-1">Yapay zekâ</li></ul>
+      <p class="mt-5 text-sm text-slate-500">TÜBİTAK 2209-B · BOSCH · 2024–2025</p>
+    </article>
+
+    <article class="card rounded-2xl p-6 flex flex-col" data-cat="game">
+      <h3 class="text-white font-semibold text-lg">Unity ile Oyun Geliştirme</h3>
+      <p class="mt-2 text-sm text-slate-400 flex-1">Game jam'ler ve çeşitli projeler için çok sayıda oyun geliştirdim. Örnekler GitHub profilimde.</p>
+      <ul class="mt-4 flex flex-wrap gap-1.5 text-xs"><li class="chip rounded-md px-2 py-1">C#</li><li class="chip rounded-md px-2 py-1">Unity</li><li class="chip rounded-md px-2 py-1">Game jam</li></ul>
+      <a href="https://github.com/ertugrultaskiran" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-sm text-ice hover:text-white"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.100.8 2.200v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg>
+        Oyunları GitHub'da gör</a>
+    </article>
+  </div>
+</section>
+
+<!-- TEKNOFEST & TÜBİTAK -->
+<section id="achievements" class="mx-auto max-w-5xl px-5 pb-24">
+  <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">TEKNOFEST & TÜBİTAK</h2>
+  <ol class="mt-10 relative border-l border-line ml-2 space-y-8">
+    <li class="pl-7 relative">
+      <span class="absolute -left-[7px] top-1.5 w-3.5 h-3.5 rounded-full bg-ice neon"></span>
+      <p class="text-sm text-ice2">2024–2025</p>
+      <h3 class="text-white font-semibold text-lg">TÜBİTAK 2209-B Araştırma Projesi · Giyilebilir Yapay Zekâ Destekli İş Güvenliği Yeleği</h3>
+      <p class="text-slate-300 mt-1 max-w-2xl">Ortak kurum: BOSCH · Danışman: Ebru İğci Erbesler</p>
+      <p class="text-slate-400 mt-2 max-w-2xl">EKG, EMG ve GSR sensörleriyle donatılmış yelek, çalışanlardan gerçek zamanlı biyometrik veri toplar. Veri, bir backend sisteminde yapay zekâ algoritmalarıyla işlenir; model çalışanın fiziksel ve zihinsel durumunu analiz ederek "çalışmaya uygun", "mola vermeli" veya "çalışamaz" gibi geri bildirimler verir. Amaç iş güvenliğini ve verimliliği artırmaktır.</p>
+      <p class="text-slate-400 mt-2 max-w-2xl">Görevlerim: sensör entegrasyonu, backend geliştirme, veri işleme ve doğru öneriler için yapay zekâ modeli optimizasyonu.</p>
+      <ul class="mt-3 flex flex-wrap gap-2 text-xs"><li class="chip rounded-full px-3 py-1">EKG · EMG · GSR</li><li class="chip rounded-full px-3 py-1">Sensör entegrasyonu</li><li class="chip rounded-full px-3 py-1">Backend</li><li class="chip rounded-full px-3 py-1">Yapay zekâ</li></ul>
+    </li>
+    <li class="pl-7 relative">
+      <span class="absolute -left-[7px] top-1.5 w-3.5 h-3.5 rounded-full bg-ice neon"></span>
+      <p class="text-sm text-ice2">2024–2025</p>
+      <h3 class="text-white font-semibold text-lg">TEKNOFEST Hava Savunma Sistemleri Yarışması · Finalist</h3>
+      <p class="text-slate-400 mt-2 max-w-2xl">Takımımız finale kaldı; finalde elendik. Yazılım geliştirme grubunda bilgisayarlı görü geliştiricisi olarak hedef tespiti ve takibi modülleri geliştirdim.</p>
+      <ul class="mt-3 flex flex-wrap gap-2 text-xs"><li class="chip rounded-full px-3 py-1">Bilgisayarlı görü</li><li class="chip rounded-full px-3 py-1">Hedef tespiti</li><li class="chip rounded-full px-3 py-1">Hedef takibi</li></ul>
+    </li>
+    <li class="pl-7 relative">
+      <span class="absolute -left-[7px] top-1.5 w-3.5 h-3.5 rounded-full bg-ice neon"></span>
+      <p class="text-sm text-ice2">2018</p>
+      <h3 class="text-white font-semibold text-lg">TEKNOFEST Roket Yarışması · Finalist</h3>
+      <p class="text-slate-300 mt-1 max-w-2xl">UHAL Roket Takımı'nın kurucu üyesiydim. Konya Tuz Gölü'ndeki finalde yer alan ilk 8 takımdan biriydik; alçak irtifa kategorisinde finale kalan tek lise ekibiydik. Finalde elendik.</p>
+      <p class="text-slate-400 mt-2 max-w-2xl">Roketin yazılımını, sensör yazılımlarını ve aerodinamiğini geliştirip optimize ettim. ROKETSAN ve ASELSAN'dan uygulamalı eğitim aldık.</p>
+      <ul class="mt-3 flex flex-wrap gap-2 text-xs"><li class="chip rounded-full px-3 py-1">Roket yazılımı</li><li class="chip rounded-full px-3 py-1">Sensör yazılımı</li><li class="chip rounded-full px-3 py-1">Aerodinamik</li></ul>
+    </li>
+  </ol>
+</section>
+
+<!-- ERASMUS -->
+<section id="erasmus" class="mx-auto max-w-5xl px-5 pb-24">
+  <div class="glass rounded-3xl p-8 sm:p-10 grid md:grid-cols-5 gap-8">
+    <div class="md:col-span-2">
+      <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Erasmus+</h2>
+      <p class="mt-3 text-slate-400">Uluslararası proje koordinasyonu</p>
+    </div>
+    <div class="md:col-span-3 space-y-6">
+      <div>
+        <h3 class="text-white font-semibold">Digital Greening with Youth · Proje koordinatörü</h3>
+        <p class="text-slate-400 mt-1">İnci Vakfı tarafından İzmir'de düzenlenen Erasmus+ KA152 gençlik projesinde hem ev sahibi hem katılımcı ülke olarak yer aldık. Türk ekibinin koordinatörü olarak proje yazımında ve yürütmesinde görev aldım. Proje, dijitalleşme ile çevre bilincini sürdürülebilir bir gelecek için bir araya getirdi.</p>
+      </div>
+      <dl class="grid grid-cols-3 gap-3 text-center">
+        <div class="chip rounded-xl p-3"><dt class="text-xs text-slate-400">Ülke</dt><dd class="text-2xl font-bold text-white">5</dd></div>
+        <div class="chip rounded-xl p-3"><dt class="text-xs text-slate-400">Genç katılımcı</dt><dd class="text-2xl font-bold text-white">30</dd></div>
+        <div class="chip rounded-xl p-3"><dt class="text-xs text-slate-400">Yer</dt><dd class="text-2xl font-bold text-white">İzmir</dd></div>
+      </dl>
+      <div class="chip rounded-xl p-4">
+        <p class="text-white font-medium">Proje için geliştirdiğim uygulama: Digital Library</p>
+        <p class="text-sm text-slate-400 mt-1">Katılımcıların ülkelerinin endemik bitkilerini keşfedip eklediği mobil uyumlu web uygulaması.</p>
+        <div class="mt-3 flex flex-wrap gap-4 text-sm">
+          <a href="https://github.com/ertugrultaskiran/digital-library" target="_blank" rel="noopener noreferrer" class="text-ice hover:text-white">Kodu GitHub'da aç</a>
+          <a href="#projects" class="text-slate-300 hover:text-white">Projeler bölümünde gör</a>
+        </div>
+      </div>
+      <ul class="flex flex-wrap gap-2 text-xs"><li class="chip rounded-full px-3 py-1">Erasmus+ KA152</li><li class="chip rounded-full px-3 py-1">Koordinasyon</li><li class="chip rounded-full px-3 py-1">Proje yazımı</li><li class="chip rounded-full px-3 py-1">Çok kültürlü iletişim</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="mx-auto max-w-5xl px-5 pb-24">
+  <h2 class="text-3xl sm:text-4xl font-bold text-white tracking-tight">Yetenekler</h2>
+  <div class="mt-8 grid md:grid-cols-3 gap-5" id="skillGroups"></div>
+</section>
+</main>
+
+<!-- FOOTER / CONTACT -->
+<footer id="contact" class="border-t border-line">
+  <div class="mx-auto max-w-5xl px-5 py-14 flex flex-col items-center gap-6">
+    <h2 class="text-2xl font-semibold text-white">Birlikte bir şey inşa edelim</h2>
+    <div class="flex items-center gap-4">
+      <a href="https://github.com/ertugrultaskiran" target="_blank" rel="noopener noreferrer" aria-label="GitHub profilini yeni sekmede aç" title="GitHub" class="glass w-14 h-14 rounded-2xl grid place-items-center text-slate-300 hover:text-ice hover:neon transition">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5a12 12 0 00-3.8 23.4c.6.1.8-.3.8-.6v-2c-3.3.7-4-1.6-4-1.6-.6-1.4-1.4-1.8-1.4-1.8-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.7-.3-5.5-1.3-5.5-6 0-1.2.5-2.3 1.2-3.1-.1-.4-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 016 0c2.3-1.5 3.3-1.2 3.3-1.2.6 1.6.2 2.8.1 3.2.8.8 1.2 1.9 1.2 3.1 0 4.6-2.8 5.6-5.5 5.9.4.4.8 1.1.8 2.2v3.3c0 .3.2.7.8.6A12 12 0 0012 .5z"/></svg>
+      </a>
+      <a href="https://www.linkedin.com/in/ertugrultaskiran/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profilini yeni sekmede aç" title="LinkedIn" class="glass w-14 h-14 rounded-2xl grid place-items-center text-slate-300 hover:text-ice hover:neon transition">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5a2.5 2.5 0 11-.01 5 2.5 2.5 0 01.01-5zM3 9.75h4V21H3V9.75zm6.5 0h3.8v1.6h.06c.53-1 1.82-2.05 3.75-2.05 4 0 4.74 2.64 4.74 6.07V21h-4v-4.9c0-1.17-.02-2.67-1.63-2.67-1.63 0-1.88 1.27-1.88 2.59V21h-4V9.75z"/></svg>
+      </a>
+      <button type="button" data-copy="ertugrul16taskiran@gmail.com" data-label="E-posta" data-href="mailto:ertugrul16taskiran@gmail.com" aria-label="E-posta adresini kopyala" title="E-posta" class="copy-btn glass w-14 h-14 rounded-2xl grid place-items-center text-slate-300 hover:text-ice hover:neon transition">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>
+      </button>
+      <button type="button" data-copy="+905395477880" data-label="Telefon numarası" data-href="tel:+905395477880" aria-label="Telefon numarasını kopyala" title="Telefon" class="copy-btn glass w-14 h-14 rounded-2xl grid place-items-center text-slate-300 hover:text-ice hover:neon transition">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+      </button>
+    </div>
+    <p class="text-xs text-slate-500">© <span id="year"></span> Ertuğrul Taşkıran</p>
+  </div>
+</footer>
+
+<div id="toast" class="toast glass fixed bottom-8 left-1/2 z-[60] rounded-xl px-5 py-3 text-sm text-white flex items-center gap-2" role="status" aria-live="polite">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7dd3fc" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5 9-10"/></svg>
+  <span id="toastText"></span>
+</div>
+
+<script>
+(() => {
+  // Yıl
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Daktilo efekti
+  const titles = ['Bilgisayar Mühendisi', 'AI & RAG Geliştirici', 'Gömülü Sistemler Meraklısı'];
+  const el = document.getElementById('typed');
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduce) { el.textContent = titles[0]; }
+  else {
+    let t = 0, c = 0, del = false;
+    const tick = () => {
+      const word = titles[t];
+      el.textContent = word.slice(0, c);
+      if (!del && c === word.length) { del = true; return setTimeout(tick, 1600); }
+      if (del && c === 0) { del = false; t = (t + 1) % titles.length; }
+      c += del ? -1 : 1;
+      setTimeout(tick, del ? 35 : 70);
+    };
+    tick();
+  }
+
+  // Mobil menü
+  const btn = document.getElementById('menuBtn'), mm = document.getElementById('mobileMenu');
+  btn.addEventListener('click', () => {
+    const open = mm.classList.toggle('hidden') === false;
+    btn.setAttribute('aria-expanded', open);
+  });
+  mm.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { mm.classList.add('hidden'); btn.setAttribute('aria-expanded', 'false'); }));
+
+  // Aktif menü bağlantısı
+  const links = [...document.querySelectorAll('#navlinks a')];
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) links.forEach(l => l.classList.toggle('active', l.getAttribute('href') === '#' + e.target.id));
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  document.querySelectorAll('main section[id]').forEach(s => io.observe(s));
+
+  // Proje filtresi
+  const fBtns = document.querySelectorAll('.filter-btn'), cards = document.querySelectorAll('#grid .card');
+  fBtns.forEach(b => b.addEventListener('click', () => {
+    fBtns.forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+    const f = b.dataset.filter;
+    cards.forEach(c => {
+      const show = f === 'all' || c.dataset.cat.split(' ').includes(f);
+      c.classList.toggle('hide', !show);
+      if (show) { c.classList.remove('pop'); void c.offsetWidth; c.classList.add('pop'); }
+    });
+  }));
+
+  // Yetenekler
+  const dev = n => `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${n}/${n}-original.svg`;
+  const groups = {
+    'Diller': [['Python','python'],['Java','java'],['C#','csharp'],['C','c'],['C++','cplusplus'],['JavaScript','javascript'],['PHP','php']],
+    'Yapay Zekâ & Veri': [['TensorFlow','tensorflow'],['PyTorch','pytorch'],['scikit-learn','scikitlearn'],['Transformers (BERT)',null],['Jupyter','jupyter'],['Ollama',null]],
+    'Geliştirme & Araçlar': [['Unity','unity'],['Flask','flask'],['CodeIgniter','codeigniter'],['MySQL','mysql'],['Git','git'],['Docker','docker']]
+  };
+  const wrap = document.getElementById('skillGroups');
+  for (const [title, items] of Object.entries(groups)) {
+    const box = document.createElement('div');
+    box.className = 'glass rounded-2xl p-6';
+    box.innerHTML = `<h3 class="text-white font-semibold mb-4">${title}</h3><ul class="flex flex-wrap gap-2">` +
+      items.map(([n, i]) => `<li class="chip rounded-lg px-3 py-2 text-sm flex items-center gap-2">${i?`<img src="${dev(i)}" alt="" width="18" height="18" loading="lazy" onerror="this.remove()">`:''}${n}</li>`).join('') + '</ul>';
+    wrap.appendChild(box);
+  }
+
+  // Panoya kopyala + bildirim
+  const toast = document.getElementById('toast'), toastText = document.getElementById('toastText');
+  let timer;
+  const notify = msg => {
+    toastText.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(timer);
+    timer = setTimeout(() => toast.classList.remove('show'), 2200);
+  };
+  const copy = async text => {
+    try { await navigator.clipboard.writeText(text); return true; }
+    catch {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      let ok = false;
+      try { ok = document.execCommand('copy'); } catch {}
+      ta.remove();
+      return ok;
+    }
+  };
+  document.querySelectorAll('.copy-btn').forEach(b => b.addEventListener('click', async () => {
+    const ok = await copy(b.dataset.copy);
+    notify(ok ? `${b.dataset.label} kopyalandı!` : 'Kopyalanamadı, lütfen elle kopyalayın.');
+    // mailto: / tel: aksiyonunu kısa gecikmeyle tetikle (bildirim görünsün)
+    setTimeout(() => { window.location.href = b.dataset.href; }, 700);
+  }));
+})();
+</script>
+</body>
+</html>
